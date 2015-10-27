@@ -29,6 +29,8 @@ class DefaultController extends Controller
         $session = $this->get('session');
 
         $session->set('lang',$lang);
+        $session->getFlashBag()
+            ->add('notice', 'Lang updated');
 
         $url = $this->container->get('request')->headers->get('referer');
 
@@ -36,5 +38,14 @@ class DefaultController extends Controller
             $url="/";
 
         return new RedirectResponse($url);
+    }
+
+    /**
+     * @Template()
+     */
+    public function footerAction()
+    {
+        return array('locale'=>$this->get('session')->get('lang'),
+            'locales'=>array('fr'=>"FR",'en'=>"EN"));
     }
 }

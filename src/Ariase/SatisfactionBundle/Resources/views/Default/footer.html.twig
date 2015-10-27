@@ -1,0 +1,8 @@
+{% for key,l in locales %}
+    {% if l == locale %}
+        {{ l }}
+        {% else %}
+            <a href="{{   path('setlocale', {'lang': key }) }}">{{ l }}</a>
+        {% endif %}
+    <br/>
+{% endfor %}

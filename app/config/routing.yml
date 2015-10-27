@@ -5,7 +5,7 @@ satisfaction:
 
 
 # redirecting the root
-root:
+index:
   path: /
   defaults:
     _controller: FrameworkBundle:Redirect:urlRedirect

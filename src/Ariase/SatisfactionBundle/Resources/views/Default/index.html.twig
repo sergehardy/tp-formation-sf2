@@ -1,7 +1,21 @@
-<html>
-<body>
-Hello {{ name }}!<br/>
-Locale: {{ locale }}<br/>
-<a href="{{   path('setlocale', {'lang': 'fr'}) }}">FR</a><br/>
-<a href="{{   path('setlocale', {'lang': 'en'}) }}">EN</a>
-</body>
+{% extends "base.html.twig" %}
+{% block header %}
+    <img src="http://www.ariase.com/media/template/ariase.png">
+{% endblock %}
+{% block menu %}
+    <a href={{ path('index') }}#" class="list-group-item">Accueil</a>
+{% endblock %}
+{% block footer %}
+    {{ render(controller( 'SatisfactionBundle:Default:footer')) }}
+{% endblock %}
+{% block content %}
+    Hello {{ name }}!<br/>
+    Locale: {{ locale }}<br/>
+
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+{% endblock content %}
