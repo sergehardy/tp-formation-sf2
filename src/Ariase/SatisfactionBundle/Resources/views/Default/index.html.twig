@@ -1,1 +1,7 @@
-Hello {{ name }}!
+<html>
+<body>
+Hello {{ name }}!<br/>
+Locale: {{ locale }}<br/>
+<a href="{{   path('setlocale', {'lang': 'fr'}) }}">FR</a><br/>
+<a href="{{   path('setlocale', {'lang': 'en'}) }}">EN</a>
+</body>
