@@ -41,6 +41,16 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/notes", name="notes")
+     * @Template()
+     */
+    public function notesListAction()
+    {
+        return ['notes'=>$this->get('doctrine')->getRepository('SatisfactionBundle:Satisfaction')->findAll()];
+    }
+
+
+    /**
      * @Template()
      */
     public function footerAction()
