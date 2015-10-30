@@ -41,14 +41,32 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/notes", name="notes")
+     * @Route("/notes/{annee}/{mois}", name="notes_campagne")
      * @Template()
      */
-    public function notesListAction()
+    public function notesListAction($annee,$mois)
     {
-        return ['notes'=>$this->get('doctrine')->getRepository('SatisfactionBundle:Satisfaction')->findAll()];
+        $notes = $this->get('doctrine')->getRepository('SatisfactionBundle:Satisfaction')
+        ->createQueryBuilder('s')
+        ->select('s,c')
+        ->join('s.campaign','c')
+        ->where('c.annee= :annee')
+        ->setParameter('annee',$annee)
+        ->setParameter('mois',$mois)
+        ->andWhere('c.mois= :mois',$mois)
+        ->getQuery()->getResult()
+        ;
+        var_dump($notes);
+        return ['notes'=>$notes];
     }
-
+    /**
+    * @Template()
+    */
+    public function menuGaucheCampagnesAction()
+    {
+        $campagnes = $this->get('doctrine')->getRepository('SatisfactionBundle:Campaign')->findAll();
+        return ['campagnes'=>$campagnes,'selected'=>'2015'];
+    }
 
     /**
      * @Template()

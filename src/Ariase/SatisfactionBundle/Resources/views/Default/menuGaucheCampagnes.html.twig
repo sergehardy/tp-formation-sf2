@@ -1,0 +1,3 @@
+{% for campagne in campagnes %}
+<a href="{{ path('notes_campagne',{ "annee": campagne.annee,"mois": campagne.mois }) }}" class="list-group-item{% if campagne.annee == selected %} active{% endif %}">{{ campagne.annee }}</a>
+{% endfor %}

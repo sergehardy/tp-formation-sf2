@@ -35,7 +35,12 @@ class Satisfaction
      */
     private $commentaire;
 
-
+    /**
+     * @var Campaign
+     * @ORM\ManyToOne(targetEntity="Campaign", inversedBy="satisfactions")
+     * @ORM\JoinColumn(name="campaign_id", referencedColumnName="id")
+     */
+    private $campaign;
     /**
      * Get id
      *
@@ -92,5 +97,29 @@ class Satisfaction
     public function getCommentaire()
     {
         return $this->commentaire;
+    }
+
+    /**
+     * Set campaign
+     *
+     * @param \Ariase\SatisfactionBundle\Entity\Campaign $campaign
+     *
+     * @return Satisfaction
+     */
+    public function setCampaign(\Ariase\SatisfactionBundle\Entity\Campaign $campaign = null)
+    {
+        $this->campaign = $campaign;
+
+        return $this;
+    }
+
+    /**
+     * Get campaign
+     *
+     * @return \Ariase\SatisfactionBundle\Entity\Campaign
+     */
+    public function getCampaign()
+    {
+        return $this->campaign;
     }
 }
