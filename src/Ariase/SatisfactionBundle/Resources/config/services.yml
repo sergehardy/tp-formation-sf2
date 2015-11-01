@@ -1,0 +1,12 @@
+services:
+  satisfaction_manager:
+     class: Ariase\SatisfactionBundle\Manager\SatisfactionManager
+     arguments: [@doctrine]
+  #ariase:
+ #       class: Ariase\SatisfactionBundle\MyCollector
+
+  #      tags:
+   #         -
+    #         name: "data_collector"
+     #        template: "bar.html.twig"
+      #       id: app.my_collectorgituser

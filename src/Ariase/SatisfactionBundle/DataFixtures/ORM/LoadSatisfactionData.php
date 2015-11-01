@@ -11,13 +11,19 @@ class LoadSatisfactionData implements FixtureInterface
 	{
 		$c1 = (new Campaign())->setMois(10)->setAnnee(2015);
         $c2 = (new Campaign())->setMois(11)->setAnnee(2015);
+		$c3 = (new Campaign())->setMois(10)->setAnnee(2014);
 
-		$s1 = (new Satisfaction())->setNote(5)->setCommentaire('ça va')->setCampaign($c1);
-		$s2 = (new Satisfaction())->setNote(3)->setCommentaire('bof')->setCampaign($c2);
-		$manager->persist($s1);
-		$manager->persist($s2);
-		$manager->persist($c1);
-		$manager->persist($c2);
+
+		$s1 = (new Satisfaction())->setNote(4)->setCommentaire('ça va')->setCampaign($c1);
+		$s2 = (new Satisfaction())->setNote(3)->setCommentaire('bof')->setCampaign($c1);
+		$s3 = (new Satisfaction())->setNote(5)->setCommentaire('génial')->setCampaign($c2);
+		$s4 = (new Satisfaction())->setNote(1)->setCommentaire('pas content')->setCampaign($c3);
+
+		$toPersist = [$c1,$c2,$c3,$s1,$s2,$s3,$s4];
+
+		foreach($toPersist as $e)
+			$manager->persist($e);
+
 		$manager->flush();
 	}
 } 

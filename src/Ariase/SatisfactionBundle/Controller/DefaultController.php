@@ -2,6 +2,7 @@
 
 namespace Ariase\SatisfactionBundle\Controller;
 
+use Ariase\SatisfactionBundle\Entity\Satisfaction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -46,26 +47,14 @@ class DefaultController extends Controller
      */
     public function notesListAction($annee,$mois)
     {
-        $notes = $this->get('doctrine')->getRepository('SatisfactionBundle:Satisfaction')
-        ->createQueryBuilder('s')
-        ->select('s,c')
-        ->join('s.campaign','c')
-        ->where('c.annee= :annee')
-        ->setParameter('annee',$annee)
-        ->setParameter('mois',$mois)
-        ->andWhere('c.mois= :mois',$mois)
-        ->getQuery()->getResult()
-        ;
-        var_dump($notes);
-        return ['notes'=>$notes];
+        return ['notes'=>$this->get('satisfaction_manager')->findNotesByAnneeAndMois($annee,$mois)];
     }
     /**
     * @Template()
     */
     public function menuGaucheCampagnesAction()
     {
-        $campagnes = $this->get('doctrine')->getRepository('SatisfactionBundle:Campaign')->findAll();
-        return ['campagnes'=>$campagnes,'selected'=>'2015'];
+        return ['campagnes'=>$this->get('satisfaction_manager')->findCampagnesForMenu(),'selected'=>'2015'];
     }
 
     /**
@@ -75,5 +64,20 @@ class DefaultController extends Controller
     {
         return array('locale'=>$this->get('session')->get('lang'),
             'locales'=>array('fr'=>"FR",'en'=>"EN"));
+    }
+
+    /**
+     * @Route("/notes/new", name="notes_new")
+     * @Template()
+     */
+    public function newNoteAction()
+    {
+        $note = new Satisfaction();
+        $form = $this->createFormBuilder($note)
+            ->add('note','integer')
+            ->add('commentaire','text')
+            ->add('save','submit',array('label'=>'Créer note'));
+
+        return ['form'=>$form->createView()];
     }
 }
