@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Campaign
  *
- * @ORM\Table()
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="uniqueMonthYear", columns={"mois", "annee"})})
  * @ORM\Entity
  */
 class Campaign
@@ -41,6 +41,8 @@ class Campaign
      */
     protected $satisfactions;
 
+
+    public function __toString(){return sprintf("%s %s",$this->mois,$this->annee);}
     /**
      * Get id
      *
@@ -139,4 +141,6 @@ class Campaign
     {
         return $this->satisfactions;
     }
+
+
 }

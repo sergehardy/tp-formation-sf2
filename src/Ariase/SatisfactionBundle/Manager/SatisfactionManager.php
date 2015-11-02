@@ -37,4 +37,9 @@ class SatisfactionManager
         return $this->doctrine->getRepository('SatisfactionBundle:Campaign')->findAll();
     }
 
+    public function findAll()
+    {
+        return $this->doctrine->getRepository('SatisfactionBundle:Satisfaction')->findAll();
+    }
+
 }
