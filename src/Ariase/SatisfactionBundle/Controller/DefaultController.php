@@ -19,7 +19,7 @@ class DefaultController extends Controller
     public function indexAction($name)
     {
         return array('name' => $name,
-            'locale'=>$this->get('session')->get('lang'));
+            'locale'=>$this->get('session')->get('_locale'));
     }
 
     /**
@@ -30,7 +30,7 @@ class DefaultController extends Controller
     {
         $session = $this->get('session');
 
-        $session->set('lang',$lang);
+        $session->set('_locale',$lang);
         $session->getFlashBag()
             ->add('notice', 'Lang updated');
 

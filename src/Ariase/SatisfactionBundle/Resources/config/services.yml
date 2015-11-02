@@ -10,3 +10,8 @@ services:
     #         name: "data_collector"
      #        template: "bar.html.twig"
       #       id: app.my_collectorgituser
+  language.kernel_request_listener:
+        class: Ariase\SatisfactionBundle\LanguageListener
+        arguments: ["%kernel.default_locale%"]
+        tags:
+            - { name: kernel.event_subscriber }
