@@ -72,11 +72,29 @@ class DefaultController extends Controller
      */
     public function newNoteAction()
     {
+        $request = $this->get('request');
         $note = new Satisfaction();
         $form = $this->createFormBuilder($note)
+
             ->add('note','integer')
             ->add('commentaire','text')
-            ->add('save','submit',array('label'=>'Créer note'));
+            ->add('campaign','entity', array(
+                    'class' => 'SatisfactionBundle:Campaign',
+                     ))
+            ->add('save','submit',array('label'=>'Créer note'))
+            ->getForm()
+        ;
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($form->getData());
+            $em->flush();
+
+            return $this->redirectToRoute('notes_new');
+        }
 
         return ['form'=>$form->createView()];
     }
