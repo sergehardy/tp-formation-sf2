@@ -77,9 +77,10 @@
 
                 {% endblock menu %}
                 {{ render(controller('SatisfactionBundle:Default:menuGaucheCampagnes')) }}
-                <a class="list-group-item" href="{{ path('notes_new') }}">Nouvelle note</a>
-                <a class="list-group-item" href="{{ path('campagnes_new') }}">Nouvelle campagne</a>
-                <a class="list-group-item" href="{{ path('notes_all') }}">Toutes les notes</a>
+                <a class="list-group-item" href="{{ path('notes_new') }}">{% trans %}menu.new_note{% endtrans %}</a>
+                <a class="list-group-item" href="{{ path('campagnes_new') }}"{% trans %}menu.new_campaign{% endtrans %}</a>
+                <a class="list-group-item" href="{{ path('notes_all') }}">{% trans %}menu.all_notes{% endtrans %}</a>
+                <a class="list-group-item" href="{{ path('fos_user_security_logout') }}">{% trans %}logout{% endtrans %}</a>
 
             </div>
         </div>

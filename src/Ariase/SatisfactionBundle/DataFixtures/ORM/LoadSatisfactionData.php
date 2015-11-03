@@ -2,6 +2,7 @@
 namespace Ariase\SatisfactionBundle\DataFixtures;
 use Ariase\SatisfactionBundle\Entity\Campaign;
 use Ariase\SatisfactionBundle\Entity\Satisfaction;
+use Ariase\SatisfactionBundle\Entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -24,6 +25,11 @@ class LoadSatisfactionData implements FixtureInterface
 		foreach($toPersist as $e)
 			$manager->persist($e);
 
+		$user = new User();
+		$user->setUsername('serge')->setPlainPassword('serge')->setEmail('shardy@jouve.fr')
+			->addRole("ROLE_ADMIN");
+
+		$manager->persist($user);
 		$manager->flush();
 	}
 } 
