@@ -8,16 +8,27 @@
 
 namespace Ariase\SatisfactionBundle\Manager;
 
+use Ariase\SatisfactionBundle\Entity\Satisfaction;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class SatisfactionManager
 {
     private $doctrine;
 
-    public function __construct($doctrine)
+    public function __construct(Registry $doctrine,EventDispatcher $dispatcher)
     {
         $this->doctrine = $doctrine;
+        $this->dispatcher = $dispatcher;
     }
+    public function persistAndFlush(Satisfaction $satisfaction){
 
+        $em = $this->em->getManager();
+        $em->persist($satisfaction);
+        $em->flush();
+        $this->dispatcher->dispatch("satisfaction.creation",new SatisfactionEvent($satisfaction));
+
+    }
     public function findNotesByAnneeAndMois($annee,$mois)
     {
         return $this->doctrine->getRepository('SatisfactionBundle:Satisfaction')

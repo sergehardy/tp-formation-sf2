@@ -15,3 +15,9 @@ services:
         arguments: ["%kernel.default_locale%"]
         tags:
             - { name: kernel.event_subscriber }
+
+  manager.mail:
+    class: Ariase\SatisfactionBundle\Manager\MailManager
+    arguments: ['@mailer','@templating']
+    tags:
+       - { name: kernel.event_listener, event: satisfaction.creation }

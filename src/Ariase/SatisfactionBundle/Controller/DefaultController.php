@@ -137,10 +137,8 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $this->get('satisfaction_manager')->persistAndFlush($form->getData());
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($form->getData());
-            $em->flush();
 
             return $this->redirectToRoute('campagnes_new');
         }
